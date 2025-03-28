@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button"
 import './App.css'
+import { Routes , Route, Navigate} from "react-router-dom"
+import { Auth } from "./pages/Auth/Auth"
 
 function App() {
 
   return (
-    <>
-       <Button>
-          Click me
-        </Button>
-    </>
+    <Routes>
+      <Route path="/" element={<Navigate to="/Auth" />} />
+      <Route path="/Auth" element={<Auth />} />
+    </Routes>
   )
 }
 
