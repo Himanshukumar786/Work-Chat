@@ -5,7 +5,8 @@ import { Auth } from '@/pages/Auth/Auth';
 import { Notfound } from '@/pages/Notfound/Notfound';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { SignupContainer } from './components/organisms/Auth/SignupContainer';
+import { SignupContainer } from '@/components/organisms/Auth/SignupContainer';
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
 
@@ -20,6 +21,14 @@ function App() {
 
       <Route path="/*" element={<Notfound />} />
     </Routes>
+    <Toaster
+        theme="light"
+        toastOptions={{
+          style: {
+            color: 'black',
+          },
+        }}
+    />
     </QueryClientProvider>
   )
 }
