@@ -18,7 +18,7 @@ export const SignupCard = () => {
     });
 
     return (
-        <Card classname="w-full h-full">
+        <Card className="w-full h-full">
             <CardHeader>
                 <CardTitle>Sign Up</CardTitle>
                 <CardDescription>Sign up to access your account</CardDescription>
