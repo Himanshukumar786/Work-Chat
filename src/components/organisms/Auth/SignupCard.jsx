@@ -8,14 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 
 export const SignupCard = ({ 
-    signupForm, 
-    setSignupForm, 
-    validationError, 
-    onSignupFormSubmit,
-    error,
-    isPending,
-    isSuccess
-}) => {
+            signupForm, 
+            setSignupForm, 
+            validationError, 
+            onSignupFormSubmit,
+            error,
+            isPending,
+            isSuccess
+        }) => {
 
     const navigate = useNavigate();
 
