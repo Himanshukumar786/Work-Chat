@@ -13,7 +13,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AppContextProvider>
         <AppRoutes />
-        <Toaster
+        
+      </AppContextProvider>
+      <Toaster
             theme="light"
             toastOptions={{
               style: {
@@ -21,7 +23,6 @@ function App() {
               },
             }}
         />
-      </AppContextProvider>
     </QueryClientProvider>
   )
 }

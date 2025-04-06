@@ -9,7 +9,7 @@ export default function combineContext(...providers) {
     };
 }
 
-/**
+/** [A, B, C, D]
  * <A>
  *  <B>
  *      <C>
@@ -19,6 +19,10 @@ export default function combineContext(...providers) {
  *      </C>
  *   </B>
  * </A>
+ */
+
+/**
+ * <BModified />
  */
 
 /**
