@@ -25,11 +25,10 @@ export const fetchWorkspacesRequest = async ({ token }) => {
             }
         });
         console.log('Response in fetch workspace request', response);
-        return response?.data;
-
-    } catch(error) {
+        return response?.data?.data || []; // Ensure it returns an array
+    } catch (error) {
         console.log('Error in fetching workspace request', error);
-        throw error.response.data;
+        throw error.response?.data || { message: 'Unknown error occurred' };
     }
 };
 

@@ -38,7 +38,9 @@ export const UserButton = () => {
             <DropdownMenuTrigger className='outline-none relative'>
                 <Avatar className='size-10 hover:opacity-65 transition'>
                     <AvatarImage src={auth?.user?.avatar} />
-                    <AvatarFallback>{auth?.user?.username[0].toUpperCase()}</AvatarFallback>
+                    <AvatarFallback>
+                        {auth?.user?.username ? auth.user.username[0].toUpperCase() : 'U'}
+                    </AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
 
