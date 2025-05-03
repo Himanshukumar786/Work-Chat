@@ -6,7 +6,7 @@ import { SidebarButton } from '@/components/molecules/SidebarButton/SidebarButto
 export const WorkspaceSidebar = () => {
     return (
         <aside
-            className="w-[70px] h-full bg-[#5854ca] flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]"
+            className="w-[70px] h-full bg-[#ba54ca] flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]"
         >
 
             <SidebarButton 
