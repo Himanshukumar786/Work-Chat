@@ -16,7 +16,7 @@ export const WorkspaceNavbar = () => {
 
     return (
         <nav
-            className='flex items-center justify-center h-10 p-1.5 bg-[#ba54ca]'
+            className='flex items-center justify-center h-10 p-1.5 bg-[#75427d]'
         >
             <div className='flex-1' />
             <div>

@@ -7,7 +7,7 @@ import { WorkspaceSwitcher } from './WorkspaceSwitcher';
 export const WorkspaceSidebar = () => {
     return (
         <aside
-            className="w-[70px] h-full bg-[#ba54ca] flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]"
+            className="w-[70px] h-full bg-[#75427d] flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]"
         >
 
             <WorkspaceSwitcher />
