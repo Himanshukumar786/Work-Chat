@@ -4,19 +4,39 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateChannelModal } from '@/hooks/context/useCreateChannelModal';
+import { useQueryClient } from '@tanstack/react-query';
+import { useAddChannelToWorkspace } from '@/hooks/apis/workspaces/useAddChannelToWorkspace';
+import { useCurrentWorkspace } from '@/hooks/context/useCurrentWorkspace';
+
+import { toast } from 'sonner'; // ✅ Sonner import
 
 export const CreateChannelModal = () => {
+    const queryClient = useQueryClient();
     
     const { openCreateChannelModal, setOpenCreateChannelModal } = useCreateChannelModal();
 
     const [channelName, setChannelName] = useState('');
 
+    const { addChannelToWorkspaceMutation } = useAddChannelToWorkspace();
+
+    const { currentWorkspace } = useCurrentWorkspace();
+
     function handleClose() {
         setOpenCreateChannelModal(false);
     }
 
-    function handleFormSubmit(e) {
+    async function handleFormSubmit(e) {
         e.preventDefault();
+        await addChannelToWorkspaceMutation({
+            workspaceId: currentWorkspace?._id,
+            channelName: channelName
+        });
+
+        toast.success('Channel created successfully'); // ✅ Sonner toast
+
+        queryClient.invalidateQueries(`fetchWorkspaceById-${currentWorkspace?._id}`);
+
+        handleClose();
     }
 
     return (
@@ -39,13 +59,12 @@ export const CreateChannelModal = () => {
                     />
 
                     <div className='flex justify-end mt-4'>
-                        <Button>
+                        <Button type="submit">
                             Create Channel
                         </Button>
                     </div>
                 </form>
             </DialogContent>
-            
         </Dialog>
     );
 };
