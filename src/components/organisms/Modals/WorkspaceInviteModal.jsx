@@ -9,8 +9,16 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { toast } from 'sonner'; // ✅ using Sonner
+import { useResetJoinCode } from '@/hooks/apis/workspaces/useResetJoinCode'; // Assuming this import is needed
 
-export const WorkspaceInviteModal = ({ openInviteModal, setOpenInviteModal, workspaceName, joinCode }) => {
+export const WorkspaceInviteModal = ({
+    openInviteModal,
+    setOpenInviteModal,
+    workspaceName,
+    joinCode,
+    workspaceId,
+}) => {
+    const { resetJoinCodeMutation } = useResetJoinCode(workspaceId);
 
     async function handleCopy() {
         const inviteLink = `${window.location.origin}/join/${joinCode}`;
@@ -18,7 +26,15 @@ export const WorkspaceInviteModal = ({ openInviteModal, setOpenInviteModal, work
         toast.success('Link copied to clipboard'); // ✅ Sonner toast
     }
 
-    async function handleResetCode() {}
+    async function handleResetCode() {
+        try {
+            await resetJoinCodeMutation();
+            toast.success('Join code reset successfully'); // ✅ Sonner toast
+        } catch (error) {
+            console.log('Error in resetting join code', error);
+            toast.error('Failed to reset join code'); // optional: show error feedback
+        }
+    }
 
     return (
         <Dialog open={openInviteModal} onOpenChange={setOpenInviteModal}>
@@ -32,23 +48,20 @@ export const WorkspaceInviteModal = ({ openInviteModal, setOpenInviteModal, work
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className='flex flex-col items-center justify-center py-10 gap-y-4'>
-                    <p className='font-bold text-4xl uppercase'>
-                        {joinCode}
-                    </p>
+                <div className="flex flex-col items-center justify-center py-10 gap-y-4">
+                    <p className="font-bold text-4xl uppercase">{joinCode}</p>
                     <Button size="sm" variant="ghost" onClick={handleCopy}>
                         Copy Link
-                        <CopyIcon className='size-4 ml-2' />
+                        <CopyIcon className="size-4 ml-2" />
                     </Button>
                 </div>
 
-                <div className='flex items-center justify-center w-full'>
+                <div className="flex items-center justify-center w-full">
                     <Button variant="outline" onClick={handleResetCode}>
                         Reset Join Code
-                        <RefreshCcwIcon className='size-4 ml-2' />
+                        <RefreshCcwIcon className="size-4 ml-2" />
                     </Button>
                 </div>
-
             </DialogContent>
         </Dialog>
     );
