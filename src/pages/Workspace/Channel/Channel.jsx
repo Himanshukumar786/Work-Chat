@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ChatInput } from '@/components/molecules/ChatInput/ChatInput';
 import { useGetChannelById } from '@/hooks/apis/channels/useGetChannelById';
 import { ChannelHeader } from '@/components/molecules/Channel/ChannelHeader';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSocket } from '@/hooks/context/useSocket';
 import { useQueryClient } from '@tanstack/react-query';
 import { useChannelMessages } from '@/hooks/context/useChannelMessages';
@@ -24,6 +24,14 @@ export const Channel = () => {
     const { setMessageList, messageList } = useChannelMessages();
 
     const { messages, isSuccess } = useGetChannelMessages(channelId);
+
+    const messageContainerListRef = useRef(null);
+
+    useEffect(() => {
+        if(messageContainerListRef.current) {
+            messageContainerListRef.current.scrollTop = messageContainerListRef.current.scrollHeight;
+        }
+    }, [messageList]);
 
 
     useEffect(() => {
@@ -66,10 +74,16 @@ export const Channel = () => {
     return (
         <div className='flex flex-col h-full'>
             <ChannelHeader name={channelDetails?.name} />
-            {messageList?.map((message) => {
-                return <Message key={message._id} body={message.body} authorImage={message.senderId?.avatar} authorName={message.senderId?.username} createdAt={message.createdAt}   />;
-            })}
-            <div className='flex-1' />
+            {/* We need to make sure that below div is scrollable for the messages */}
+            <div
+                ref={messageContainerListRef}
+                className='flex-5 overflow-y-auto p-5 gap-y-2'
+            >
+                {messageList?.map((message) => {
+                    return <Message key={message._id} body={message.body} authorImage={message.senderId?.avatar} authorName={message.senderId?.username} createdAt={message.createdAt}   />;
+                })}   
+            </div>   
+            {/* <div className='flex-1' /> */}
 
             <ChatInput />
         </div>
