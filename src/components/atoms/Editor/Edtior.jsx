@@ -6,8 +6,10 @@ import { ImageIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Hint } from '../Hint/Hint';
+import { MdSend } from 'react-icons/md';
 
 export const Editor = ({
+  onSubmit,
   placeholder,
   disabled,
   defaultValue
@@ -97,10 +99,10 @@ export const Editor = ({
         <div
           className='h-full ql-custom'
           ref={containerRef}
-          style={{ minHeight: '120px', paddingBottom: '40px' }} // Add bottom padding for icons
+          style={{ minHeight: '120px', paddingBottom: '40px' }}
         />
 
-        {/* Bottom-left toolbar buttons */}
+        {/* Bottom toolbar buttons */}
         <div className='absolute bottom-2 left-2 flex gap-3 z-10'>
           <Hint label={!isToolbarVisible ? 'Show toolbar' : 'Hide toolbar'} side='top' align='center'>
             <Button
@@ -125,6 +127,20 @@ export const Editor = ({
             </Button>
           </Hint>
         </div>
+        <div className='absolute bottom-2 right-2 z-10'>
+          <Hint label="Send message">
+            <Button
+              size="iconSm"
+              className="w-8 h-8 p-0 flex items-center justify-center rounded-md bg-[#007a6a] hover:bg-[#007a6a]/80 text-white"
+              onClick={() => {
+                onSubmit({ body: JSON.stringify(quillRef.current?.getContents()) });
+              }}
+              disabled={false}
+            >
+              <MdSend className="size-4" />
+            </Button>
+          </Hint>
+        </div>
       </div>
       <p className='p-2 text-[10px] text-muted-foreground flex justify-end'>
         <strong>Shift + return</strong>&nbsp; to add a new line
@@ -132,4 +148,3 @@ export const Editor = ({
     </div>
   );
 };
-
