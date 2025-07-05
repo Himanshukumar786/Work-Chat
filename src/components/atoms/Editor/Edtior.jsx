@@ -2,18 +2,16 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import { useEffect, useRef, useState } from 'react';
 import { PiTextAa } from 'react-icons/pi';
+import { ImageIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { Hint } from '../Hint/Hint';
 
 export const Editor = ({
-  variant = 'create',
-  onSubmit,
-  onCancel,
   placeholder,
   disabled,
   defaultValue
 }) => {
-  const [text, setText] = useState('');
   const [isToolbarVisible, setIsToolbarVisible] = useState(true);
 
   const containerRef = useRef();
@@ -45,7 +43,7 @@ export const Editor = ({
       modules: {
         toolbar: [
           ['bold', 'italic', 'underline', 'strike'],
-          ['link', 'image'],
+          ['link'],
           [{ list: 'ordered' }, { list: 'bullet' }],
           ['clean']
         ],
@@ -95,24 +93,43 @@ export const Editor = ({
   return (
     <div className='flex flex-col'>
       <div className='relative border border-slate-300 rounded-md overflow-hidden bg-white'>
-        {/* 👇 Quill editor will be rendered inside this */}
-        <div className='h-full ql-custom' ref={containerRef} />
+        {/* Quill editor goes here */}
+        <div
+          className='h-full ql-custom'
+          ref={containerRef}
+          style={{ minHeight: '120px', paddingBottom: '40px' }} // Add bottom padding for icons
+        />
 
-                <div className='flex px-2 pb-2 z-[5]'>
-                    <Button
-                        size="iconSm"
-                        variant="ghost"
-                        disabled={false}
-                        onClick={toggleToolbar}
-                    >
-                        <PiTextAa className='size-4' />
-                    </Button>
-                </div>
-            </div>
-
+        {/* Bottom-left toolbar buttons */}
+        <div className='absolute bottom-2 left-2 flex gap-3 z-10'>
+          <Hint label={!isToolbarVisible ? 'Show toolbar' : 'Hide toolbar'} side='top' align='center'>
+            <Button
+              size="iconSm"
+              variant="ghost"
+              disabled={false}
+              onClick={toggleToolbar}
+            >
+              <PiTextAa className='size-4' />
+            </Button>
+          </Hint>
+          <Hint label="Insert image" side='top' align='center'>
+            <Button
+              size="iconSm"
+              variant="ghost"
+              disabled={false}
+              onClick={() => {
+                // Future image handler here
+              }}
+            >
+              <ImageIcon className='size-4' />
+            </Button>
+          </Hint>
+        </div>
+      </div>
       <p className='p-2 text-[10px] text-muted-foreground flex justify-end'>
         <strong>Shift + return</strong>&nbsp; to add a new line
       </p>
     </div>
   );
 };
+

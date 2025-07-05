@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { ChatInput } from '@/components/molecules/ChatInput/ChatInput';
 import { useGetChannelById } from '@/hooks/apis/channels/useGetChannelById';
+import { ChannelHeader } from '@/components/molecules/Channel/ChannelHeader';
 
 export const Channel = () => {
 
@@ -31,7 +32,9 @@ export const Channel = () => {
 
     return (
         <div className='flex flex-col h-full'>
+            <ChannelHeader name={channelDetails?.name} />
             <div className='flex-1' />
+
             <ChatInput />
         </div>
     );
