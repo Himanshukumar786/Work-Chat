@@ -133,7 +133,9 @@ export const Editor = ({
               size="iconSm"
               className="w-8 h-8 p-0 flex items-center justify-center rounded-md bg-[#007a6a] hover:bg-[#007a6a]/80 text-white"
               onClick={() => {
-                onSubmit({ body: JSON.stringify(quillRef.current?.getContents()) });
+                const messageContent = JSON.stringify(quillRef.current?.getContents());
+                  onSubmit({ body: messageContent });
+                  quillRef.current?.setText('');
               }}
               disabled={false}
             >

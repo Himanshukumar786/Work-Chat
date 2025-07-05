@@ -4,12 +4,22 @@ import { useParams } from 'react-router-dom';
 import { ChatInput } from '@/components/molecules/ChatInput/ChatInput';
 import { useGetChannelById } from '@/hooks/apis/channels/useGetChannelById';
 import { ChannelHeader } from '@/components/molecules/Channel/ChannelHeader';
+import { useEffect } from 'react';
+import { useSocket } from '@/hooks/context/useSocket';
 
 export const Channel = () => {
 
     const { channelId } = useParams();
 
     const { channelDetails, isFetching, isError } = useGetChannelById(channelId);
+
+    const { joinChannel } = useSocket();
+
+    useEffect(() => {
+        if(!isFetching && !isError) {
+            joinChannel(channelId);
+        }
+    }, [isFetching, isError, joinChannel, channelId]);
 
     if(isFetching) {
         return (
