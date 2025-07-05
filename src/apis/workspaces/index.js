@@ -28,7 +28,7 @@ export const fetchWorkspacesRequest = async ({ token }) => {
         return response?.data?.data || []; // Ensure it returns an array
     } catch (error) {
         console.log('Error in fetching workspace request', error);
-        throw error.response?.data || { message: 'Unknown error occurred' };
+        throw error.response || { message: 'Unknown error occurred' };
     }
 };
 
